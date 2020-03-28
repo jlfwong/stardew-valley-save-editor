@@ -21,22 +21,25 @@
     isDragging = false
   }
 
-  function onButtonClick() {
-    saveGame.getHost().setMoney(99999)
-
-    saveGame = saveGame
-  }
-
   function download() {
     saveGame.download()
+  }
+
+  function onMoneyChange(ev) {
+    const value = parseInt(ev.target.value)
+    if (!isNaN(value)) {
+      saveGame.getHost().setMoney(value)
+      saveGame = saveGame
+    }
   }
 </script>
 
 <main on:drop={onDrop} on:dragover={onDragOver} on:dragend={onDragEnd} class={isDragging ? "isDragging" : ""}>
 {#if saveGame != null}
-  <button on:click={onButtonClick}>MONEY!</button>
+  <div>
+    Money: <input type="text" value={saveGame.getHost().getMoney()} on:input={onMoneyChange}/>
+  </div>
   <button on:click={download}>Download</button>
-  {saveGame.getHost().getMoney()}
 {:else}
   Drop file here
 {/if}
