@@ -40,8 +40,20 @@
     Money: <input type="text" value={saveGame.getHost().getMoney()} on:input={onMoneyChange}/>
   </div>
   <button on:click={download}>Download</button>
+  <div>
+    After downloading, replace the file you dropped with the one you downloaded (but back it up first!)
+  </div>
 {:else}
-  Drop file here
+  Drop your save file here.
+  <div>
+    On macOS, you should find your save file somewhere like <code>/Users/(YOUR USERNAME)/.config/StardewValey/Saves/(YOUR NAME)_###/(YOUR NAME)_###</code>.
+  </div>
+  <div>
+    For example, mine is at <code>/Users/jlfwong/.config/StardewValue/Saves/Jamie_244353258/Jamie_2344353258</code>.
+  </div>
+  <div>
+    If you can't find that directory in Finder, try opening the terminal and running <code>open ~/.config/StarDewValley/Saves</code>
+  </div>
 {/if}
 </main>
 
@@ -58,9 +70,12 @@
 
   main {
     text-align: center;
-    border: 1px solid red;
+    flex-direction: column;
     height: 100vh;
     width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .isDragging {

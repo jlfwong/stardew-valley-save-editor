@@ -53,7 +53,7 @@ class SaveGame {
     const a = document.createElement('a')
     a.download = this.filename
     a.href = window.URL.createObjectURL(blob)
-    a.dataset.downloadurl = ['text/json', a.download, a.href].join(':')
+    a.dataset.downloadurl = ['application/octet-stream', a.download, a.href].join(':')
 
     // For this to work in Firefox, the <a> must be in the DOM
     document.body.appendChild(a)
