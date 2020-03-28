@@ -1,42 +1,25 @@
 <script>
-	export let name;
+	import {handleFileDrop} from './parser.ts';
 
-	function processDroppedFile(file) {
-		console.log("File", file)
-	}
+	let isDragging = false
 
 	function onDrop(ev) {
-		ev.preventDefault()
-		console.log("onDrop", ev)
-
-		if (ev.dataTransfer.items) {
-			// Use DataTransferItemList interface to access the file(s)
-			for (var i = 0; i < ev.dataTransfer.items.length; i++) {
-				// If dropped items aren't files, reject them
-				if (ev.dataTransfer.items[i].kind === 'file') {
-					var file = ev.dataTransfer.items[i].getAsFile();
-					processDroppedFile(file)
-					return
-				}
-			}
-		} else {
-			// Use DataTransfer interface to access the file(s)
-			for (var i = 0; i < ev.dataTransfer.files.length; i++) {
-				processDroppedFile(ev.dataTransfer[i])
-				return
-			}
-		}
+		isDragging = false
+		handleFileDrop(ev)
 	}
 
 	function onDragOver(ev) {
-		// TODO(jlfwong): Show drop indicator
-		console.log("onDragOver", ev)
+		isDragging = true
 		ev.preventDefault()
+	}
+
+	function onDragEnd(ev) {
+		isDragging = false
 	}
 </script>
 
-<main on:drop={onDrop} on:dragover={onDragOver}>
-What's up
+<main on:drop={onDrop} on:dragover={onDragOver} on:dragend={onDragEnd} class={isDragging ? "isDragging" : ""}>
+Drop file here
 </main>
 
 <style>
@@ -55,5 +38,9 @@ What's up
 		border: 1px solid red;
 		height: 100vh;
 		width: 100vw;
+	}
+
+	.isDragging {
+		outline: 3px solid blue;
 	}
 </style>

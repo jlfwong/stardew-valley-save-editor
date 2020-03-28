@@ -3,6 +3,8 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
+import typescript from "rollup-plugin-typescript2";
+import typescriptCompiler from "typescript";
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -24,6 +26,8 @@ export default {
 				css.write('public/build/bundle.css');
 			}
 		}),
+
+    typescript({ typescript: typescriptCompiler }),
 
 		// If you have external dependencies installed from
 		// npm, you'll most likely need these plugins. In
